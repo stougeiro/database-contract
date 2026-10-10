@@ -23,17 +23,19 @@
         public function read(array $primaryKey): ?array;
 
         /**
-         * Enumerates records purely by options (no filtering). Filtering is a
-         * search concern; search() provides on-demand filtered listings.
+         * Enumerates records matching structured predicates. The $where is
+         * evaluated as exact/structured conditions (equality, IN, ranges),
+         * unlike search() which applies matching/indexed text semantics.
          * Canonical options:
          *   - limit: int
          *   - offset: int
          *   - order: array<string, 'asc'|'desc'>
          *
+         * @param array<string, mixed> $where
          * @param array{limit?: int, offset?: int, order?: array<string, 'asc'|'desc'>} $options
          * @return array<int, array<string, mixed>>
          */
-        public function list(array $options = []): array;
+        public function list(array $where = [], array $options = []): array;
 
         /**
          * Updates records matching $where and returns the affected records count.
@@ -53,23 +55,24 @@
         public function delete(array $where): int;
 
         /**
-         * Searches records by matching/indexed text semantics (drivers must
-         * support search, per capabilities(), for this to be honored).
+         * Lists records filtered on demand, evaluating $where with
+         * matching/indexed text semantics (requires supportsSearch).
          *
-         * @param array<string, mixed> $query
+         * @param array<string, mixed> $where
          * @param array{limit?: int, offset?: int, order?: array<string, 'asc'|'desc'>} $options
          * @return array<int, array<string, mixed>>
          */
-        public function search(array $query, array $options = []): array;
+        public function search(array $where, array $options = []): array;
 
         /**
-         * Counts records: empty $query counts the enumeration (list); a
-         * provided $query counts the filtered search (requires supportsSearch).
+         * Counts records matching $where, with the same evaluation as list()
+         * (exact/structured predicates) — the count counterpart of the
+         * enumeration, used for pagination.
          *
-         * @param array<string, mixed> $query
+         * @param array<string, mixed> $where
          * @return int
          */
-        public function total(array $query = []): int;
+        public function total(array $where = []): int;
 
         /** @return ResourceMetadataInterface
          */

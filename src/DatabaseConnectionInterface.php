@@ -25,19 +25,20 @@
         public function read(string $resource, array $primaryKey): ?array;
 
         /**
-         * Enumerates records purely by options (no filtering). Filtering is a
-         * search concern; search() (SearchInterface, when supported) provides
-         * on-demand filtered listings.
+         * Enumerates records matching structured predicates. The $where is
+         * evaluated as exact/structured conditions (equality, IN, ranges),
+         * unlike search() which applies matching/indexed text semantics.
          * Canonical options:
          *   - limit: int
          *   - offset: int
          *   - order: array<string, 'asc'|'desc'>
          *
          * @param string $resource
+         * @param array<string, mixed> $where
          * @param array{limit?: int, offset?: int, order?: array<string, 'asc'|'desc'>} $options
          * @return array<int, array<string, mixed>>
          */
-        public function list(string $resource, array $options = []): array;
+        public function list(string $resource, array $where = [], array $options = []): array;
 
         /**
          * Updates records matching $where and returns the affected records count.
@@ -59,14 +60,15 @@
         public function delete(string $resource, array $where): int;
 
         /**
-         * Counts records: empty $query counts the enumeration (list); a
-         * provided $query counts the filtered search (requires supportsSearch).
+         * Counts records matching $where, with the same evaluation as list()
+         * (exact/structured predicates). This is the count counterpart of the
+         * enumeration, used for pagination.
          *
          * @param string $resource
-         * @param array<string, mixed> $query
+         * @param array<string, mixed> $where
          * @return int
          */
-        public function total(string $resource, array $query = []): int;
+        public function total(string $resource, array $where = []): int;
 
         /** @return DatabaseCapabilitiesInterface
          */
