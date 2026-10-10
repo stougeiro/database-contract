@@ -1,6 +1,6 @@
 {
     "name": "stougeiro/database-contract",
-    "description": "",
+    "description": "Minimal, provider-agnostic database contracts for PHP: what a driver must do, never how, so the same code runs over SQL, NoSQL, remote services or files.",
     "type": "library",
     "minimum-stability": "stable",
     "prefer-stable": true,
@@ -12,6 +12,18 @@
         }
     ],
     "keywords": [
+        "php",
+        "database",
+        "contract",
+        "interfaces",
+        "abstraction",
+        "database-abstraction",
+        "database-contract",
+        "sql",
+        "nosql",
+        "agnostic",
+        "provider-agnostic",
+        "driver"
     ],
     "support": {
         "issues": "https://github.com/stougeiro/database-contract/issues",
