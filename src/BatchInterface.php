@@ -7,23 +7,22 @@
     {
         /**
          * @param string $resource
-         * @param array $rows
-         * @return int
+         * @param array<int, array<string, mixed>> $rows
+         * @return int Affected records count.
          */
         public function insertMany(string $resource, array $rows): int;
 
         /**
          * @param string $resource
-         * @param array $rows
-         * @param array $where
-         * @return int
+         * @param array<int, array{data: array<string, mixed>, where: array<string, mixed>}> $rows
+         * @return int Affected records count.
          */
-        public function updateMany(string $resource, array $rows, array $where): int;
+        public function updateMany(string $resource, array $rows): int;
 
         /**
          * @param string $resource
-         * @param array $where
-         * @return int
+         * @param array<int, array<string, mixed>> $where
+         * @return int Affected records count.
          */
         public function deleteMany(string $resource, array $where): int;
     }

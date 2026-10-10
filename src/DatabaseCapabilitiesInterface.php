@@ -5,31 +5,53 @@
 
     interface DatabaseCapabilitiesInterface
     {
-        /** @return bool
+        /**
+         * Whether the driver exercises transactions. Drivers that return true
+         * also implement TransactionInterface.
+         *
+         * @return bool
          */
         public function supportsTransactions(): bool;
 
-        /** @return bool
+        /**
+         * Whether BatchInterface operations are honored.
+         *
+         * @return bool
          */
         public function supportsBatch(): bool;
 
-        /** @return bool
+        /**
+         * Whether StreamingInterface operations are honored.
+         *
+         * @return bool
          */
         public function supportsStreaming(): bool;
 
-        /** @return bool
+        /**
+         * Whether AggregationInterface operations are honored.
+         *
+         * @return bool
          */
         public function supportsAggregation(): bool;
 
-        /** @return bool
+        /**
+         * Whether search() semantics are honored (indexed text matching).
+         *
+         * @return bool
          */
         public function supportsSearch(): bool;
 
-        /** @return bool
+        /**
+         * Whether the order option is honored on list/search/stream/total.
+         *
+         * @return bool
          */
         public function supportsOrdering(): bool;
 
-        /** @return bool
+        /**
+         * Whether the limit/offset options are honored on list/search/stream/total.
+         *
+         * @return bool
          */
         public function supportsPagination(): bool;
     }

@@ -5,19 +5,31 @@
 
     interface ResourceMetadataInterface
     {
-        /** @return array
+        /**
+         * Primary key fields (single or composite) for the resource.
+         *
+         * @return array<int, string>
          */
         public function primaryKey(): array;
 
-        /** @return array
+        /**
+         * Fields available on the resource.
+         *
+         * @return array<string, mixed>
          */
         public function fields(): array;
 
-        /** @return array
+        /**
+         * Field type mapping.
+         *
+         * @return array<string, mixed>
          */
         public function types(): array;
 
-        /** @return array
+        /**
+         * Local -> foreign key pairs (local => resource or foreign field).
+         *
+         * @return array<string, string>
          */
         public function foreignKeys(): array;
     }

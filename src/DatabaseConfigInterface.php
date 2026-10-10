@@ -18,7 +18,7 @@
          */
         public function has(string $key): bool;
 
-        /** @return array
+        /** @return array<string, mixed>
          */
         public function all(): array;
 
