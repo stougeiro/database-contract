@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-    namespace STDW\Contract\Database;
+    namespace STDW\Contract\Database\Model;
 
 
     interface ModelInterface
@@ -23,18 +23,17 @@
         public function read(array $primaryKey): ?array;
 
         /**
-         * Lists records matching structured filters.
+         * Enumerates records purely by options (no filtering). Filtering is a
+         * search concern; search() provides on-demand filtered listings.
          * Canonical options:
          *   - limit: int
          *   - offset: int
          *   - order: array<string, 'asc'|'desc'>
-         * Options not supported by the driver (per capabilities()) are ignored.
          *
-         * @param array<string, mixed> $filters
          * @param array{limit?: int, offset?: int, order?: array<string, 'asc'|'desc'>} $options
          * @return array<int, array<string, mixed>>
          */
-        public function list(array $filters = [], array $options = []): array;
+        public function list(array $options = []): array;
 
         /**
          * Updates records matching $where and returns the affected records count.
@@ -64,10 +63,13 @@
         public function search(array $query, array $options = []): array;
 
         /**
-         * @param array<string, mixed> $filters
+         * Counts records: empty $query counts the enumeration (list); a
+         * provided $query counts the filtered search (requires supportsSearch).
+         *
+         * @param array<string, mixed> $query
          * @return int
          */
-        public function total(array $filters = []): int;
+        public function total(array $query = []): int;
 
         /** @return ResourceMetadataInterface
          */

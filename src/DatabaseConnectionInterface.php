@@ -25,19 +25,19 @@
         public function read(string $resource, array $primaryKey): ?array;
 
         /**
-         * Lists records matching structured filters.
+         * Enumerates records purely by options (no filtering). Filtering is a
+         * search concern; search() (SearchInterface, when supported) provides
+         * on-demand filtered listings.
          * Canonical options:
          *   - limit: int
          *   - offset: int
          *   - order: array<string, 'asc'|'desc'>
-         * Options not supported by the driver (per capabilities()) are ignored.
          *
          * @param string $resource
-         * @param array<string, mixed> $filters
          * @param array{limit?: int, offset?: int, order?: array<string, 'asc'|'desc'>} $options
          * @return array<int, array<string, mixed>>
          */
-        public function list(string $resource, array $filters = [], array $options = []): array;
+        public function list(string $resource, array $options = []): array;
 
         /**
          * Updates records matching $where and returns the affected records count.
@@ -59,26 +59,14 @@
         public function delete(string $resource, array $where): int;
 
         /**
-         * Searches records by matching/indexed text semantics (drivers must
-         * support search, per capabilities(), for this to be honored).
-         * Canonical options:
-         *   - limit: int
-         *   - offset: int
-         *   - order: array<string, 'asc'|'desc'>
+         * Counts records: empty $query counts the enumeration (list); a
+         * provided $query counts the filtered search (requires supportsSearch).
          *
          * @param string $resource
          * @param array<string, mixed> $query
-         * @param array{limit?: int, offset?: int, order?: array<string, 'asc'|'desc'>} $options
-         * @return array<int, array<string, mixed>>
-         */
-        public function search(string $resource, array $query, array $options = []): array;
-
-        /**
-         * @param string $resource
-         * @param array<string, mixed> $filters
          * @return int
          */
-        public function total(string $resource, array $filters = []): int;
+        public function total(string $resource, array $query = []): int;
 
         /** @return DatabaseCapabilitiesInterface
          */

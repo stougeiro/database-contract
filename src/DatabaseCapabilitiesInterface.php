@@ -6,52 +6,40 @@
     interface DatabaseCapabilitiesInterface
     {
         /**
-         * Whether the driver exercises transactions. Drivers that return true
-         * also implement TransactionInterface.
-         *
-         * @return bool
-         */
-        public function supportsTransactions(): bool;
-
-        /**
-         * Whether BatchInterface operations are honored.
-         *
-         * @return bool
-         */
-        public function supportsBatch(): bool;
-
-        /**
-         * Whether StreamingInterface operations are honored.
-         *
-         * @return bool
-         */
-        public function supportsStreaming(): bool;
-
-        /**
-         * Whether AggregationInterface operations are honored.
+         * Whether Capability\AggregationInterface operations are honored.
          *
          * @return bool
          */
         public function supportsAggregation(): bool;
 
         /**
-         * Whether search() semantics are honored (indexed text matching).
+         * Whether Capability\BatchInterface operations are honored.
+         *
+         * @return bool
+         */
+        public function supportsBatch(): bool;
+
+        /**
+         * Whether Capability\SearchInterface semantics are honored (indexed
+         * text matching). Ordering and pagination (limit/offset/order) are
+         * baseline and always expected.
          *
          * @return bool
          */
         public function supportsSearch(): bool;
 
         /**
-         * Whether the order option is honored on list/search/stream/total.
+         * Whether Capability\StreamingInterface operations are honored.
          *
          * @return bool
          */
-        public function supportsOrdering(): bool;
+        public function supportsStreaming(): bool;
 
         /**
-         * Whether the limit/offset options are honored on list/search/stream/total.
+         * Whether the driver exercises transactions. Drivers that return true
+         * also implement Capability\TransactionInterface.
          *
          * @return bool
          */
-        public function supportsPagination(): bool;
+        public function supportsTransactions(): bool;
     }
