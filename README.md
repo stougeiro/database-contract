@@ -24,7 +24,7 @@ composer require stougeiro/database-contract
 
 Below is a list of known implementations maintained by the community.
 
-- `stougeiro/router`  
+- `stougeiro/database`  
   Repository: https://github.com/stougeiro/database
 
 ---
