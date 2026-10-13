@@ -21,7 +21,7 @@ Minimal, provider‑agnostic database contracts for PHP. They define what a data
   Thin, pass‑through contracts close to the native API, so implementations stay fast and allocation‑light.
 
 - **Metadata as Source of Truth**  
-  Primary keys are always arrays (simple or composite); foreign keys are always simple `local → foreign` pairs.
+  Primary keys are always arrays (simple or composite); foreign keys are always simple `local → "resource.field"` pairs.
 
 - **Capability Negotiation**  
   `capabilities()` lets a client adapt to what each driver actually supports, instead of assuming features.
@@ -109,13 +109,15 @@ own dialect):
 
 - `create()` returns the **stored record** as an array; the driver fills in
   server-generated values (ids, timestamps).
-- `update()`, `delete()`, and batch methods return an `int` **affected records
-  count** (matched/modified unified).
+- `update()`, `delete()`, and the batch methods (`insertMany`, `updateMany`)
+  return an `int` **affected records count** (matched/modified unified).
 
-### Primary keys and foreign keys
+### Metadata (primary keys, foreign keys, types)
 
 - Primary keys are always arrays — simple or composite.
-- Foreign keys are always simple pairs: `local => foreign`.
+- Foreign keys are always simple pairs: `local => "resource.field"`.
+- `types()` uses a recommended vocabulary per field: `int`, `float`, `string`,
+  `bool`, `datetime`.
 
 ### Events (`Event\EventfulInterface`)
 
@@ -123,14 +125,24 @@ The only obligation is `on(string $event, callable $listener)`. The following
 are **recommended conventions**, not enforced by the contract:
 
 - Listeners are plain `callable`s, registered via `on()`.
-- No removal, no `once`, no priority: once registered, the listener always runs.
-- Listeners execute in registration order (FIFO) and are isolated — a failure in
-  one does not break the others.
+- Only `on()`: there is no removal (`off`/`once`/priority), and no ordering
+  guarantee.
+- Events are leaf notifications **by convention**: each operation simply
+  announces its lifecycle events, and listeners are not expected to dispatch
+  further events. Doing so is the developer's explicit choice and
+  responsibility — not recommended here.
+- How listeners handle (or fail with) exceptions is an application concern,
+  out of scope for this contract.
 - Canonical naming: `{resource}.{timing}.{action}` with an explicit resource
   name (no wildcards):
-  - `{resource}.before.{action}` — create/update/delete; may abort by throwing.
-  - `{resource}.after.{action}` — create/update/delete/read/list/search;
-    observation only.
+  - `{resource}.before.{action}` — `create/update/delete/read/list/search/total/
+    aggregate/insertMany/updateMany/begin/commit/rollback/stream`; announced
+    before persistence.
+  - `{resource}.after.{action}` — same actions as `before`, **except `stream`**
+    (a lazy stream completes outside the call, so it is only announced before);
+    announced after persistence, receives the operation result.
+  - Transaction actions (`begin`/`commit`/`rollback`) use the resource name
+    `Transaction` rather than a data resource.
   - Examples: `user.before.create`, `user.after.read`.
 
 ### Transactions
@@ -146,7 +158,7 @@ SQL and NoSQL engines disagree on almost everything — query dialects, indexing
 
 This contract fixes only that shared core, and deliberately nothing more. The challenge is not covering every engine's capabilities; it is covering them **without letting any single engine leak into the contract**.
 
-- **The core is universal.** `create`, `read`, `list`, `update`, `delete` and `total` speak in `resource`, primary keys, `where` and `options` — concepts both worlds understand. Primary keys are always arrays (simple or composite); foreign keys are always simple `local → foreign` pairs.
+- **The core is universal.** `create`, `read`, `list`, `update`, `delete` and `total` speak in `resource`, primary keys, `where` and `options` — concepts both worlds understand. Primary keys are always arrays (simple or composite); foreign keys are always simple `local → "resource.field"` pairs.
 - **Thin by principle.** This is not a query builder. Conditions and options are handed to the driver as plain data, mapped to its native API — no AST, no translation pass, no hidden layer between your code and the database.
 - **Optional power is isolated.** Batch, streaming, aggregation, search and transactions live in `Capability\` contracts, each announced through `capabilities()`. A driver implements what it supports; a client adapts. Nothing is assumed or imposed.
 - **Fairness.** No engine is the reference. The contract never mentions tables, collections or documents — it abstracts the storage, not the model. Where SQL and NoSQL diverge, the divergence sits behind an optional capability.
