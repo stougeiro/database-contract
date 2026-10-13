@@ -97,9 +97,13 @@ own dialect):
 - `total($where = [])` — counts records matching `where`, following the same
   evaluation as `list` (the count counterpart of the enumeration, used for
   pagination; no options).
-- `stream($where = [], $options = [])` — the lazy counterpart of `list`/`search`,
-  designed to be bounded by `limit` and avoid full scans (the guarantee is the
-  driver's).
+- `stream($where = [], $options = [])` — the **lazy** counterpart of both
+  `list` and `search`, designed to be bounded by `limit` and avoid loading the
+  full set into memory at once (the guarantee is the driver's). Its only
+  concern is memory-bounded delivery: the `$where` is evaluated **by its
+  dialect**, exactly like `list()`/`search()` — empty `$where` streams the
+  enumeration, structured predicates stream like `list()`, and search
+  semantics stream like `search()` (requires `supportsSearch()`).
 
 ### Write results
 
