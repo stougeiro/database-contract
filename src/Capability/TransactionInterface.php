@@ -3,6 +3,8 @@
     namespace STDW\Contract\Database\Capability;
 
 
+    /** Optional: transactional control. Requires supportsTransactions().
+     */
     interface TransactionInterface
     {
         /** @return void

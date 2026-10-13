@@ -3,6 +3,11 @@
     namespace STDW\Contract\Database;
 
 
+    /**
+     * The core, always-available operations every driver must expose:
+     * create, read, list, update, delete and total — plus capability
+     * negotiation via capabilities().
+     */
     interface DatabaseConnectionInterface
     {
         /**
@@ -28,7 +33,8 @@
          * Enumerates records matching structured predicates. The $where is
          * evaluated as exact/structured conditions (equality, IN, ranges),
          * unlike search() which applies matching/indexed text semantics.
-         * Canonical options:
+         *
+         * Canonical options shape (referenced by the other read operations):
          *   - limit: int
          *   - offset: int
          *   - order: array<string, 'asc'|'desc'>
@@ -61,12 +67,12 @@
 
         /**
          * Counts records matching $where, with the same evaluation as list()
-         * (exact/structured predicates). This is the count counterpart of the
+         * (exact/structured predicates) — the count counterpart of the
          * enumeration, used for pagination.
          *
          * @param string $resource
          * @param array<string, mixed> $where
-         * @return int
+         * @return int Count of matching records.
          */
         public function total(string $resource, array $where = []): int;
 

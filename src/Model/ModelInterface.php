@@ -3,6 +3,10 @@
     namespace STDW\Contract\Database\Model;
 
 
+    /**
+     * A resource-bound facade over DatabaseConnectionInterface, exposing the
+     * core operations plus search and metadata without repeating the resource.
+     */
     interface ModelInterface
     {
         /**
@@ -26,10 +30,8 @@
          * Enumerates records matching structured predicates. The $where is
          * evaluated as exact/structured conditions (equality, IN, ranges),
          * unlike search() which applies matching/indexed text semantics.
-         * Canonical options:
-         *   - limit: int
-         *   - offset: int
-         *   - order: array<string, 'asc'|'desc'>
+         * The $options follow the canonical shape defined in
+         * \STDW\Contract\Database\DatabaseConnectionInterface::list().
          *
          * @param array<string, mixed> $where
          * @param array{limit?: int, offset?: int, order?: array<string, 'asc'|'desc'>} $options
@@ -56,7 +58,10 @@
 
         /**
          * Lists records filtered on demand, evaluating $where with
-         * matching/indexed text semantics (requires supportsSearch).
+         * matching/indexed text semantics (FTS, $text, regex) — unlike list(),
+         * which evaluates $where as exact/structured predicates. Requires
+         * supportsSearch(). The $options follow the canonical shape defined in
+         * \STDW\Contract\Database\DatabaseConnectionInterface::list().
          *
          * @param array<string, mixed> $where
          * @param array{limit?: int, offset?: int, order?: array<string, 'asc'|'desc'>} $options
@@ -70,7 +75,7 @@
          * enumeration, used for pagination.
          *
          * @param array<string, mixed> $where
-         * @return int
+         * @return int Count of matching records.
          */
         public function total(array $where = []): int;
 

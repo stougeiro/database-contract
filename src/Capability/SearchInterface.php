@@ -3,6 +3,8 @@
     namespace STDW\Contract\Database\Capability;
 
 
+    /** Optional: on-demand text matching. Requires supportsSearch().
+     */
     interface SearchInterface
     {
         /**
@@ -11,11 +13,9 @@
          * which evaluates $where as exact/structured predicates. Drivers must
          * support search, per supportsSearch(), for this to be honored. When
          * the underlying resource does not support the driver's search
-         * semantics, the driver throws a clear exception.
-         * Canonical options:
-         *   - limit: int
-         *   - offset: int
-         *   - order: array<string, 'asc'|'desc'>
+         * semantics, the driver throws a clear exception. The $options follow
+         * the canonical shape defined in
+         * \STDW\Contract\Database\DatabaseConnectionInterface::list().
          *
          * @param string $resource
          * @param array<string, mixed> $where

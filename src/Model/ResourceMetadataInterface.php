@@ -3,6 +3,8 @@
     namespace STDW\Contract\Database\Model;
 
 
+    /** Describes a resource's schema: primary key, fields, types and foreign keys.
+     */
     interface ResourceMetadataInterface
     {
         /**
@@ -20,14 +22,16 @@
         public function fields(): array;
 
         /**
-         * Field type mapping.
+         * Field type mapping. Recommended vocabulary per field:
+         * int, float, string, bool, datetime.
          *
-         * @return array<string, mixed>
+         * @return array<string, string>
          */
         public function types(): array;
 
         /**
-         * Local -> foreign key pairs (local => resource or foreign field).
+         * Local -> foreign key pairs. Each value is the canonical reference
+         * string "resource.field".
          *
          * @return array<string, string>
          */
