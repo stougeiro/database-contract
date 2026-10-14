@@ -15,6 +15,7 @@ composer-cache/
 # IDEs
 .idea/
 .vscode/
+.archive/
 *.iml
 
 # Sistema operacional
