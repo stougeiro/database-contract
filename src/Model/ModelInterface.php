@@ -5,7 +5,8 @@
 
     /**
      * A resource-bound facade over DatabaseConnectionInterface, exposing the
-     * core operations plus search and metadata without repeating the resource.
+     * core operations plus search without repeating the resource. Metadata is
+     * exposed through the optional ResourceMetadataAwareInterface.
      */
     interface ModelInterface
     {
@@ -78,8 +79,4 @@
          * @return int Count of matching records.
          */
         public function total(array $where = []): int;
-
-        /** @return ResourceMetadataInterface
-         */
-        public function metadata(): ResourceMetadataInterface;
     }

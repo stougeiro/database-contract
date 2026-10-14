@@ -67,9 +67,10 @@ way; they exist to make client code portable, not to constrain implementations.
   `Transaction`. Announced via `capabilities()`.
 - **`Event\`** — the eventing layer (`EventfulInterface`).
 - **`Model\`** — the resource layer: `ModelInterface` (resource-bound facade)
-  and `ResourceMetadataInterface`. Capabilities belong to the driver (engine);
-  whether a specific resource supports them is a schema/metadata concern, left
-  to the driver.
+  and the optional `ResourceMetadataAwareInterface` + `ResourceMetadataInterface`
+  (schema description: primary keys, foreign keys, types). Capabilities belong
+  to the driver (engine); whether a specific resource supports them is a
+  schema/metadata concern, left to the driver.
 
 ### Options (`list`, `search`, `stream`)
 
@@ -113,6 +114,10 @@ own dialect):
   return an `int` **affected records count** (matched/modified unified).
 
 ### Metadata (primary keys, foreign keys, types)
+
+Metadata is optional: a model exposes it by implementing the optional
+`ResourceMetadataAwareInterface` (detected via `instanceof`). Drivers/models without a
+describable schema simply don't implement it.
 
 - Primary keys are always arrays — simple or composite.
 - Foreign keys are always simple pairs: `local => "resource.field"`.
