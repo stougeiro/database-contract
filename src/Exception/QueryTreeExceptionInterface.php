@@ -3,5 +3,5 @@
     namespace STDW\Contract\Database\Exception;
 
 
-    interface SqtExceptionInterface extends DatabaseExceptionInterface
+    interface QueryTreeExceptionInterface extends DatabaseExceptionInterface
     { }

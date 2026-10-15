@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-    namespace STDW\Contract\Database\SQT;
+    namespace STDW\Contract\Database\QueryTree;
 
-    use STDW\Contract\Database\SQT\Types\LogicOperator;
+    use STDW\Contract\Database\QueryTree\Types\LogicOperator;
 
 
     /**

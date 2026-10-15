@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-    namespace STDW\Contract\Database\SQT;
+    namespace STDW\Contract\Database\QueryTree;
 
 
     /**

@@ -4,7 +4,7 @@
 
     use STDW\Contract\Database\Driver\DatabaseDriverInterface;
     use STDW\Contract\Database\Resource\DatabaseResourceInterface;
-    use STDW\Contract\Database\SQT\Types\OrderDirection;
+    use STDW\Contract\Database\QueryTree\Types\OrderDirection;
 
 
     /**

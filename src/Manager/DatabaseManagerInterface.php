@@ -13,7 +13,8 @@
      * time (e.g. from config/database.php); it is never registered at
      * runtime. driver() resolves the target driver via
      * DriverResolverInterface and builds it via DriverFactoryInterface
-     * according to its configuration. It never knows about SQT.
+     * according to its configuration. It never knows about the query
+     * tree (QueryTree).
      */
     interface DatabaseManagerInterface
     {
