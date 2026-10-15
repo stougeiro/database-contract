@@ -5,14 +5,27 @@
     use STDW\Contract\Database\Param\ParamInterface;
     use STDW\Contract\Database\Resource\DatabaseResourceInterface;
     use STDW\Contract\Database\Result\ResultInterface;
+    use STDW\Contract\Database\SQT\Types\OrderDirection;
 
 
     /**
      * Core CRUD contract every driver must implement.
-     * Criteria are passed as simple arrays whose values may be a
-     * ParamInterface (typed, injection-safe) or a raw scalar/array;
-     * the driver translates them to its native format (SQL, Mongo
-     * query, REST params, etc.).
+     * Criteria are passed as simple arrays whose values are a
+     * ParamInterface (typed, injection-safe) or a list of them; the
+     * driver translates them to its native format (SQL, Mongo query,
+     * REST params, etc.). Operators are UPPERCASE neutral keys derived
+     * from ConditionOperator (each driver maps them to native). The
+     * filter's string key is "column OP" (space-separated, default
+     * OP = EQ). A filter is either a Predicate (associative; entries
+     * ANDed) or a list of Clauses (default AND; "AND"/"OR"/"NOT"
+     * tokens; nested lists are groups). Disambiguation uses
+     * array_is_list(), so repeating a "column OP" never collides.
+     *
+     * @phpstan-type CriteriaValue ParamInterface|array<int, ParamInterface>|null
+     * @phpstan-type Predicate array<string, CriteriaValue>
+     * @phpstan-type Clause Predicate|'AND'|'OR'|'NOT'|list<Clause>
+     * @phpstan-type Filter Predicate|list<Clause>
+     * @phpstan-type Pagination array{limit?: int, offset?: int, page?: int, perPage?: int, cursor?: mixed}
      */
     interface DatabaseDriverInterface
     {
@@ -25,16 +38,16 @@
 
         /**
          * @param DatabaseResourceInterface $resource
-         * @param array<string, ParamInterface> $filter
+         * @param Filter $filter
          * @return ResultInterface
          */
         public function read(DatabaseResourceInterface $resource, array $filter = []): ResultInterface;
 
         /**
          * @param DatabaseResourceInterface $resource
-         * @param array<string, ParamInterface> $filter
-         * @param array<string, 'asc'|'desc'> $order
-         * @param array{limit?: int, offset?: int, page?: int, perPage?: int} $pagination
+         * @param Filter $filter
+         * @param array<string, OrderDirection> $order
+         * @param Pagination $pagination
          * @return ResultInterface
          */
         public function list(DatabaseResourceInterface $resource, array $filter = [], array $order = [], array $pagination = []): ResultInterface;
@@ -42,21 +55,21 @@
         /**
          * @param DatabaseResourceInterface $resource
          * @param array<string, ParamInterface> $data
-         * @param array<string, ParamInterface> $filter
+         * @param Filter $filter
          * @return ResultInterface
          */
         public function update(DatabaseResourceInterface $resource, array $data, array $filter): ResultInterface;
 
         /**
          * @param DatabaseResourceInterface $resource
-         * @param array<string, ParamInterface> $filter
+         * @param Filter $filter
          * @return ResultInterface
          */
         public function delete(DatabaseResourceInterface $resource, array $filter): ResultInterface;
 
         /**
          * @param DatabaseResourceInterface $resource
-         * @param array<string, ParamInterface> $filter
+         * @param Filter $filter
          * @return ResultInterface
          */
         public function total(DatabaseResourceInterface $resource, array $filter = []): ResultInterface;

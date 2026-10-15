@@ -19,7 +19,11 @@
          */
         public function operator(): ConditionOperator;
 
-        /** @return ParamInterface 
+        /**
+         * A single typed value, or a list of them for the list/interval
+         * operators (in, not_in, between, not_between).
+         *
+         * @return ParamInterface|array<int, ParamInterface>
          */
-        public function value(): ParamInterface;
+        public function value(): ParamInterface|array;
     }
