@@ -73,9 +73,9 @@
         /**
          * @param DatabaseResourceInterface $resource
          * @param Filter $filter
-         * @return ResultInterface
+         * @return int
          */
-        public function total(DatabaseResourceInterface $resource, array $filter = []): ResultInterface;
+        public function total(DatabaseResourceInterface $resource, array $filter = []): int;
 
         /** @return DriverCapabilitiesInterface 
          */

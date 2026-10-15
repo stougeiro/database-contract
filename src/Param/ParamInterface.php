@@ -2,8 +2,8 @@
 
     namespace STDW\Contract\Database\Param;
 
-    use Stringable;
     use STDW\Contract\Database\Param\Types\ParamType;
+    use Stringable;
 
 
     interface ParamInterface extends Stringable
