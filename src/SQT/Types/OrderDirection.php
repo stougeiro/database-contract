@@ -4,10 +4,12 @@
 
 
     /**
-     * Logical operators for LogicNodeInterface and GroupNodeInterface.
+     * Neutral order directions used by OrderNodeInterface.
+     * Values are engine-agnostic keys; each driver maps them to its
+     * native representation.
      */
     enum OrderDirection: string
     {
-        case Asc = 'ASC';
-        case Desc = 'DESC';
+        case Asc = 'asc';
+        case Desc = 'desc';
     }

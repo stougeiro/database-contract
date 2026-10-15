@@ -2,11 +2,12 @@
 
     namespace STDW\Contract\Database\SQT;
 
+    use STDW\Contract\Database\Param\ParamInterface;
     use STDW\Contract\Database\SQT\Types\ConditionOperator;
 
 
     /**
-     * Represents a column comparison.
+     * Represents a column comparison: column + operator + typed value.
      */
     interface ConditionNodeInterface
     {
@@ -18,7 +19,7 @@
          */
         public function operator(): ConditionOperator;
 
-        /** @return mixed 
+        /** @return ParamInterface 
          */
-        public function value(): mixed;
+        public function value(): ParamInterface;
     }

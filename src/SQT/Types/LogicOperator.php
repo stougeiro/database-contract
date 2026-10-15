@@ -4,11 +4,13 @@
 
 
     /**
-     * Logical operators for LogicNodeInterface and GroupNodeInterface.
+     * Neutral logical operators used by LogicNodeInterface and
+     * GroupNodeInterface. Values are engine-agnostic keys; each driver
+     * maps them to its native representation.
      */
     enum LogicOperator: string
     {
-        case And = 'AND';
-        case Or = 'OR';
-        case Not = 'NOT';
+        case And = 'and';
+        case Or = 'or';
+        case Not = 'not';
     }

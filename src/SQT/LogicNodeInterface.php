@@ -6,11 +6,13 @@
 
 
     /**
-     * Represents a logical grouping of nodes (AND/OR/NOT).
+     * Carries a single logical operator (and/or/not).
+     * It only holds the operator; grouping and children are managed
+     * by GroupNodeInterface.
      */
     interface LogicNodeInterface
     {
-        /** @return null|LogicOperator 
+        /** @return LogicOperator 
          */
-        public function operator(): ?LogicOperator;
+        public function operator(): LogicOperator;
     }

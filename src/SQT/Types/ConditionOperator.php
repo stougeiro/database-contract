@@ -4,23 +4,26 @@
 
 
     /**
-     * Operators used by ConditionNodeInterface.
-     * The enum uses string constants that map to their SQL representation.
+     * Neutral operators used by ConditionNodeInterface.
+     * Values are engine-agnostic keys; each driver maps them to its
+     * native representation (SQL symbols, Mongo operators, etc.).
+     * Engine-specific operators are outside this enum and are handled
+     * by the driver's own filter arrays / capabilities.
      */
     enum ConditionOperator: string
     {
-        case Eq = '=';
-        case Neq = '!=';
-        case Gt = '>';
-        case Gte = '>=';
-        case Lt = '<';
-        case Lte = '<=';
-        case In = 'IN';
-        case NotIn = 'NOT IN';
-        case Like = 'LIKE';
-        case NotLike = 'NOT LIKE';
-        case IsNull = 'IS NULL';
-        case IsNotNull = 'IS NOT NULL';
-        case Between = 'BETWEEN';
-        case NotBetween = 'NOT BETWEEN';
+        case Eq = 'eq';
+        case Neq = 'neq';
+        case Gt = 'gt';
+        case Gte = 'gte';
+        case Lt = 'lt';
+        case Lte = 'lte';
+        case In = 'in';
+        case NotIn = 'not_in';
+        case Like = 'like';
+        case NotLike = 'not_like';
+        case IsNull = 'is_null';
+        case IsNotNull = 'is_not_null';
+        case Between = 'between';
+        case NotBetween = 'not_between';
     }
