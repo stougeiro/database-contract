@@ -20,11 +20,14 @@
      * ANDed) or a list of Clauses (default AND; "AND"/"OR"/"NOT"
      * tokens; nested lists are groups). Disambiguation uses
      * array_is_list(), so repeating a "column OP" never collides.
+     * The aliases are non-recursive (PHPStan cannot resolve recursive
+     * type aliases), so groups are typed for two levels and deeper
+     * levels degrade to array<int, mixed>.
      *
      * @phpstan-type CriteriaValue ParamInterface|array<int, ParamInterface>|null
      * @phpstan-type Predicate array<string, CriteriaValue>
-     * @phpstan-type Clause Predicate|'AND'|'OR'|'NOT'|list<Clause>
-     * @phpstan-type Filter Predicate|list<Clause>
+     * @phpstan-type Clause Predicate|'AND'|'OR'|'NOT'|array<int, Predicate|'AND'|'OR'|'NOT'|array<int, mixed>>
+     * @phpstan-type Filter Predicate|array<int, Clause>
      * @phpstan-type Pagination array{limit?: int, offset?: int, page?: int, perPage?: int, cursor?: mixed}
      */
     interface DatabaseDriverInterface
