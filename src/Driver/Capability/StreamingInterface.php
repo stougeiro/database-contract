@@ -5,6 +5,7 @@
     use STDW\Contract\Database\Driver\DatabaseDriverInterface;
     use STDW\Contract\Database\Resource\DatabaseResourceInterface;
     use STDW\Contract\Database\QueryTree\Types\OrderDirection;
+    use STDW\Contract\Database\Exception\DriverExceptionInterface;
 
 
     /**
@@ -35,6 +36,7 @@
          * @param array<string, OrderDirection> $order
          * @param Pagination $pagination
          * @return iterable<int, mixed>
+         * @throws DriverExceptionInterface
          */
         public function stream(DatabaseResourceInterface $resource, array $filter = [], array $order = [], array $pagination = []): iterable;
     }

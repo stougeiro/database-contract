@@ -6,6 +6,7 @@
     use STDW\Contract\Database\Resource\DatabaseResourceInterface;
     use STDW\Contract\Database\Result\ResultInterface;
     use STDW\Contract\Database\QueryTree\Types\OrderDirection;
+    use STDW\Contract\Database\Exception\DriverExceptionInterface;
 
 
     /**
@@ -29,6 +30,7 @@
          * @param array<string, OrderDirection> $order
          * @param Pagination $pagination
          * @return ResultInterface
+         * @throws DriverExceptionInterface
          */
         public function search(DatabaseResourceInterface $resource, array $filter = [], array $order = [], array $pagination = []): ResultInterface;
     }

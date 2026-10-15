@@ -2,25 +2,33 @@
 
     namespace STDW\Contract\Database\Driver\Capability;
 
+    use STDW\Contract\Database\Exception\DriverExceptionInterface;
+
 
     /**
      * Optional: transactional control. Requires supportsTransactions().
      */
     interface TransactionInterface
     {
-        /** @return void 
+        /**
+         * @return void
+         * @throws DriverExceptionInterface
          */
         public function begin(): void;
 
-        /** @return void 
+        /**
+         * @return void
+         * @throws DriverExceptionInterface
          */
         public function commit(): void;
 
-        /** @return void 
+        /**
+         * @return void
+         * @throws DriverExceptionInterface
          */
         public function rollback(): void;
 
-        /** @return bool 
+        /** @return bool
          */
         public function inTransaction(): bool;
     }

@@ -3,10 +3,12 @@
     namespace STDW\Contract\Database\Manager;
 
     use STDW\Contract\Database\Connection\DatabaseConnectionInterface;
+    use STDW\Contract\Database\Exception\ManagerExceptionInterface;
 
 
     /**
-     * Stores and retrieves open connections by name.
+     * Stores and retrieves open connections by name (the live pool).
+     * Construction is the factory's job; this registry only caches.
      */
     interface ConnectionRegistryInterface
     {
@@ -20,6 +22,7 @@
         /**
          * @param string $name
          * @return DatabaseConnectionInterface
+         * @throws ManagerExceptionInterface
          */
         public function get(string $name): DatabaseConnectionInterface;
 
@@ -29,7 +32,7 @@
          */
         public function has(string $name): bool;
 
-        /** @return array<string, DatabaseConnectionInterface> 
+        /** @return array<string, DatabaseConnectionInterface>
          */
         public function all(): array;
 

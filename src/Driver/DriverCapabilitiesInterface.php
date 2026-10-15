@@ -12,23 +12,27 @@
      */
     interface DriverCapabilitiesInterface
     {
-        /** @return bool 
+        /** @return bool
          */
         public function supportsAggregation(): bool;
 
-        /** @return bool 
+        /** @return bool
          */
         public function supportsBatch(): bool;
 
-        /** @return bool 
+        /** @return bool
          */
         public function supportsSearch(): bool;
 
-        /** @return bool 
+        /** @return bool
          */
         public function supportsStreaming(): bool;
 
-        /** @return bool 
+        /** @return bool
          */
         public function supportsTransactions(): bool;
+
+        /** @return bool
+         */
+        public function supportsUpsert(): bool;
     }

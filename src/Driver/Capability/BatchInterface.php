@@ -5,6 +5,7 @@
     use STDW\Contract\Database\Param\ParamInterface;
     use STDW\Contract\Database\Resource\DatabaseResourceInterface;
     use STDW\Contract\Database\Result\ResultInterface;
+    use STDW\Contract\Database\Exception\DriverExceptionInterface;
 
 
     /**
@@ -19,6 +20,7 @@
          * @param DatabaseResourceInterface $resource
          * @param array<int, array<string, ParamInterface>> $rows
          * @return ResultInterface
+         * @throws DriverExceptionInterface
          */
         public function insertMany(DatabaseResourceInterface $resource, array $rows): ResultInterface;
 
@@ -31,6 +33,7 @@
          * @param DatabaseResourceInterface $resource
          * @param array<int, array{data: array<string, ParamInterface>, where: array<string, ParamInterface>}> $rows
          * @return ResultInterface
+         * @throws DriverExceptionInterface
          */
         public function updateMany(DatabaseResourceInterface $resource, array $rows): ResultInterface;
     }
