@@ -5,13 +5,13 @@
 
     enum ParamType: string
     {
-        case INT = 'int';
-        case FLOAT = 'float';
-        case STRING = 'string';
-        case BOOL = 'bool';
-        case NULL = 'null';
-        case ARRAY = 'array';
-        case JSON = 'json';
-        case DATE = 'date';
-        case DATETIME = 'datetime';
+        case Int = 'int';
+        case Float = 'float';
+        case String = 'string';
+        case Bool = 'bool';
+        case Null = 'null';
+        case Array = 'array';
+        case Json = 'json';
+        case Date = 'date';
+        case Datetime = 'datetime';
     }
