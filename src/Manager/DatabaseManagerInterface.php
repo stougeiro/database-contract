@@ -9,7 +9,11 @@
     /**
      * Orchestrates drivers, connections, factories and resolvers.
      * The manager decides which driver to use and keeps connections alive.
-     * It never knows about SQT.
+     * Its configuration (named connections) is provided at construction
+     * time (e.g. from config/database.php); it is never registered at
+     * runtime. driver() resolves the target driver via
+     * DriverResolverInterface and builds it via DriverFactoryInterface
+     * according to its configuration. It never knows about SQT.
      */
     interface DatabaseManagerInterface
     {
@@ -34,10 +38,4 @@
         /** @return void 
          */
         public function purge(): void;
-
-        /**
-         * @param callable $callback
-         * @return mixed
-         */
-        public function transaction(callable $callback): mixed;
     }

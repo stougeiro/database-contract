@@ -4,25 +4,23 @@
 
 
     /**
-     * Core connection contract.
+     * Core connection contract: lifecycle and native handle only.
+     * Query execution lives on the driver (DatabaseDriverInterface);
+     * transactions are a driver capability (Driver\Capability\TransactionInterface).
      */
     interface DatabaseConnectionInterface
     {
-        /** @param array<string, mixed> $config
+        /**
+         * Establishes the connection and returns the connected instance.
+         *
+         * @param array<string, mixed> $config
+         * @return static
          */
-        public function connect(array $config): void;
+        public function connect(array $config): static;
 
-        /** @return void 
+        /** @return bool 
          */
-        public function begin(): void;
-
-        /** @return void 
-         */
-        public function commit(): void;
-
-        /** @return void 
-         */
-        public function rollback(): void;
+        public function isConnected(): bool;
 
         /** @return mixed
          */
