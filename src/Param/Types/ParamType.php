@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-    namespace STDW\Contract\Database\Param;
+    namespace STDW\Contract\Database\Param\Types;
 
 
     enum ParamType: string
