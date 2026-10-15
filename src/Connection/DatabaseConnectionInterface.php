@@ -2,8 +2,6 @@
 
     namespace STDW\Contract\Database\Connection;
 
-    use STDW\Contract\Database\Result\ResultInterface;
-
 
     /**
      * Core connection contract.
@@ -16,17 +14,21 @@
 
         /** @return void 
          */
-        public function disconnect(): void;
+        public function begin(): void;
 
-        /** @return bool 
+        /** @return void 
          */
-        public function isConnected(): bool;
+        public function commit(): void;
 
-        /**
-         * Execute a raw statement.
+        /** @return void 
          */
-        public function execute(string $statement, array $params = []): ResultInterface;
+        public function rollback(): void;
 
-        /** @return mixed */
+        /** @return mixed
+         */
         public function handle(): mixed;
+
+        /** @return void 
+         */
+        public function disconnect(): void;
     }
