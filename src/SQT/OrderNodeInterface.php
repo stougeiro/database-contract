@@ -2,6 +2,8 @@
 
     namespace STDW\Contract\Database\SQT;
 
+    use STDW\Contract\Database\SQT\Types\OrderDirection;
+
 
     /**
      * Represents an ORDER BY clause.
