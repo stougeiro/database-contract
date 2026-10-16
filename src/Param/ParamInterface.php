@@ -2,11 +2,10 @@
 
     namespace STDW\Contract\Database\Param;
 
-    use STDW\Contract\Database\Param\Types\ParamType;
-    use Stringable;
+    use STDW\Contract\Database\Param\Type\ParamType;
 
 
-    interface ParamInterface extends Stringable
+    interface ParamInterface
     {
         /** @return mixed 
          */
@@ -15,8 +14,4 @@
         /** @return ParamType 
          */
         public function type(): ParamType;
-
-        /** @return string 
-         */
-        public function __toString(): string;
     }
