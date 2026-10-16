@@ -3,16 +3,17 @@
     namespace STDW\Contract\Database\Driver\Capability;
 
     use STDW\Contract\Database\Driver\DatabaseDriverInterface;
+    use STDW\Contract\Database\QueryTree\Node\GroupNodeInterface;
+    use STDW\Contract\Database\QueryTree\Node\OrderNodeInterface;
+    use STDW\Contract\Database\QueryTree\Node\PaginationNodeInterface;
     use STDW\Contract\Database\Resource\DatabaseResourceInterface;
-    use STDW\Contract\Database\QueryTree\Types\OrderDirection;
     use STDW\Contract\Database\Exception\DriverExceptionInterface;
 
 
     /**
      * Optional: lazy, memory-bounded delivery. Requires supportsStreaming().
      *
-     * @phpstan-import-type Filter from DatabaseDriverInterface
-     * @phpstan-import-type Pagination from DatabaseDriverInterface
+     * @phpstan-import-type Order from DatabaseDriverInterface
      */
     interface StreamingInterface
     {
@@ -29,14 +30,15 @@
          *   - search semantics (FTS, $text, regex) — same evaluation as search();
          *     requires supportsSearch().
          * $order and $pagination follow the canonical shape defined in
-         * DatabaseDriverInterface::list().
+         * DatabaseDriverInterface::list() and are honored only if the driver
+         * supports them.
          *
          * @param DatabaseResourceInterface $resource
-         * @param Filter $filter
-         * @param array<string, OrderDirection> $order
-         * @param Pagination $pagination
+         * @param null|GroupNodeInterface $filter
+         * @param Order $order
+         * @param null|PaginationNodeInterface $pagination
          * @return iterable<int, mixed>
          * @throws DriverExceptionInterface
          */
-        public function stream(DatabaseResourceInterface $resource, array $filter = [], array $order = [], array $pagination = []): iterable;
+        public function stream(DatabaseResourceInterface $resource, ?GroupNodeInterface $filter = null, array $order = [], ?PaginationNodeInterface $pagination = null): iterable;
     }

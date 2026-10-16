@@ -3,6 +3,7 @@
     namespace STDW\Contract\Database\Driver\Capability;
 
     use STDW\Contract\Database\Param\ParamInterface;
+    use STDW\Contract\Database\QueryTree\Node\GroupNodeInterface;
     use STDW\Contract\Database\Resource\DatabaseResourceInterface;
     use STDW\Contract\Database\Result\ResultInterface;
     use STDW\Contract\Database\Exception\DriverExceptionInterface;
@@ -26,12 +27,12 @@
 
         /**
          * Applies each entry independently: the data of an entry is applied to
-         * the records matching that same entry's where. count() on the
+         * the records matching that same entry's filter. count() on the
          * returned result is the sum of the affected records across all
          * entries.
          *
          * @param DatabaseResourceInterface $resource
-         * @param array<int, array{data: array<string, ParamInterface>, where: array<string, ParamInterface>}> $rows
+         * @param array<int, array{data: array<string, ParamInterface>, filter: GroupNodeInterface}> $rows
          * @return ResultInterface
          * @throws DriverExceptionInterface
          */
