@@ -12,10 +12,10 @@
      * The manager decides which driver to use and keeps connections alive.
      * Its configuration (named connections) is provided at construction
      * time (e.g. from config/database.php); it is never registered at
-     * runtime. connection() builds via ConnectionFactoryInterface and
-     * caches in ConnectionRegistryInterface; driver() receives that
-     * connection and builds the driver via DriverFactoryInterface. It
-     * never knows about the query tree (QueryTree).
+     * runtime. connection() builds drivers via DatabaseFactoryInterface and
+     * caches connections inline; driver() receives that connection and builds
+     * the driver through the same factory. It never knows about the query
+     * tree (QueryTree).
      */
     interface DatabaseManagerInterface
     {
