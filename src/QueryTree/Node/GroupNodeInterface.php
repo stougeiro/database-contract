@@ -1,8 +1,6 @@
 <?php declare(strict_types=1);
 
-    namespace STDW\Contract\Database\QueryTree;
-
-    use STDW\Contract\Database\Exception\QueryTreeExceptionInterface;
+    namespace STDW\Contract\Database\QueryTree\Node;
 
 
     /**
@@ -17,8 +15,9 @@
      * NOT negates only the next node/group; a group's default join is AND.
      *
      * Engines that cannot express a node (e.g. NoSQL filters without LIKE)
-     * yield an empty result rather than an error, so a driver can be swapped
-     * without touching the caller.
+     * must fail fast: the driver throws (DriverExceptionInterface) rather
+     * than silently yielding an empty result, so a dialect gap is never
+     * mistaken for "no matches".
      */
     interface GroupNodeInterface
     {
